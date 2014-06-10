@@ -26,6 +26,9 @@
 node_modules
 public
 db
+font-download-tools/font-zips
+font-download-tools/fonts
+font-download-tools/**/*.zip
 
 # Logs and databases #
 ######################
