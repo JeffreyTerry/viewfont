@@ -29,6 +29,7 @@ db
 font-download-tools/font-zips
 font-download-tools/fonts
 font-download-tools/**/*.zip
+assets/fonts
 
 # Logs and databases #
 ######################

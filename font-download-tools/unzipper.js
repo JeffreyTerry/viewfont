@@ -100,16 +100,44 @@ fs.readdir('./', function(err, files){
     console.log('Error reading files: ', err);
     return;
   }
+
+  // Filters out extraneous files
   files = _.filter(files, function(file){
     return file.substr(file.length - 3) === 'zip';
   });
+
+  // Creates a javascript file with a list of all of the fonts
   fs.writeFile('fonts.js', 'var fonts=[', function(err){
     if(err){
       console.log('Error creating fonts.js: ', err);
     }
   });
-  _.each(files, function(file){
+
+  // Unzips each file and puts the results in the 'fonts' folder
+  _.each(files, function(file, index){
     unzipFolder(file);
   });
 });
+
+/* This here is some trickery here to combat EMFILE errors (too many files open) that we were getting */
+// var filePackets = [];
+// for(var i = 0; i < files.length; i += 120){
+//   filePackets.push( files.splice(i, i + 120) );
+// }
+// var delay = 5000;
+// _.each(filePackets, function(files){
+// console.log('this');
+//   setTimeout(function(){
+//     _.each(files, function(file){
+//       unzipFolder(file);
+//     });
+//   }, delay - 5000);
+//   delay *= 2;
+// });
+
+
+
+
+
+
 
