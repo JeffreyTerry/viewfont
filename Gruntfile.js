@@ -10,7 +10,7 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
   grunt.loadNpmTasks('grunt-contrib-sass');
 
-  var reloadPort = 35729,
+  var reloadPort = 3000, // 35729,
       files;
 
   grunt.initConfig({

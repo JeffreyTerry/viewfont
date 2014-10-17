@@ -3,20 +3,6 @@ var unzip = require('unzip'),
     _ = require('underscore'),
     fnparser = require('./filenameparser');
 
-
-// console.log( getFontNameFromPath('veteran_typewriter.ttf') );
-// console.log( getFontNameFromPath('qarmic_sans_abridged.ttf') );
-// console.log( getFontNameFromPath('PAETRRG_.ttf') );
-// console.log( getFontNameFromPath('Arsenal-Regular.otf') );
-// console.log( getFontNameFromPath('PrintClearly.otf') );
-// console.log( getFontNameFromPath('Qarmic_sans_Abridged.ttf') );
-// console.log( getFontNameFromPath('PrintersOrnamentsOne.ttf') );
-// console.log( getFontNameFromPath('Quantico-Regular.otf') );
-// console.log( getFontNameFromPath('Quattrocento-Regular.otf') );
-// console.log( getFontNameFromPath('QuattrocentoSans-Regular.otf') );
-// console.log( getFontNameFromPath('Questrial-Regular.otf') );
-// console.log( getFontNameFromPath('quick_end_jerk.ttf') );
-
 function getFontFaceTemplate(fontName, fontPath){
   return '@font-face{font-family:"' + fontName + '";src:url("../fonts/' + fontPath + '");}'
 }
@@ -33,6 +19,7 @@ function addFontCSS(path){
   appendNextFontCSS();
 }
 
+// Appends next fonts' @font-face css to fonts.css
 var firstFont = true;
 var inProgress = false;
 function appendNextFontCSS(){
@@ -62,23 +49,7 @@ function appendNextFontCSS(){
   });
 }
 
-// // Puts each font in its own CSS file NOT FINISHED
-// var fonts = [];  // Will be used to create a javascript file containing all of the font objects in the system.
-
-// function addFontCSS(path){
-//   font = {
-//     name: fnparser.parse( path.substring( 0, path.lastIndexOf('.') ) ),
-//     path: path
-//   };
-//   fs.writeFile(path, getFontFaceTemplate(font.name, font.path), function(err){
-//     inProgress = false;
-//     console.log( getFontFaceTemplate(font.name, font.path) );
-//     if(err){
-//       console.log('Error writing CSS: ', err);
-//     }
-//   });
-// }
-
+// Unzips a folder and calls addFontCSS for each of the fonts inside
 function unzipFolder(path){
   fs.createReadStream(path)
     .pipe(unzip.Parse())
@@ -119,7 +90,7 @@ fs.readdir('./', function(err, files){
   });
 });
 
-/* This here is some trickery here to combat EMFILE errors (too many files open) that we were getting */
+/* This here is some trickery here to combat EMFILE errors (too many files open) that we were getting. Unfortunately it doesn't work. */
 // var filePackets = [];
 // for(var i = 0; i < files.length; i += 120){
 //   filePackets.push( files.splice(i, i + 120) );
